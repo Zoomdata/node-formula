@@ -1,0 +1,2 @@
+nodejs:
+  version: 18  # The version of Node.js to install

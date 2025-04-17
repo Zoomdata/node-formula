@@ -1,0 +1,15 @@
+{% if salt['pillar.get']('nodejs:version', 18) == 18 %}
+{% set nodejs = {
+    'pkg': 'nodejs-18',
+    'repo_name': 'nodejs-18-repo',
+    'repo_ppa': 'ppa:nodejs/stable',
+    'repo_entry': 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main',
+    'repo_key_url': 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key',
+    'repo_base_url': 'https://deb.nodesource.com/node_18.x',
+    'apt_config': {
+        '50nodesource': {
+            'value': 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main',
+        }
+    }
+} %}
+{% endif %}

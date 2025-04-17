@@ -1,0 +1,53 @@
+wheezy:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}
+  repo_entry: 'deb http://archive.debian.org/debian/ %(repo_name)s main'
+  node_home: /usr/lib/nodejs
+
+jessie:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}-backports
+  repo_entry: 'deb http://archive.debian.org/debian/ %(repo_name)s main'
+  apt_config:
+    # Ignore expiry date, since backports are no longer updated
+    90ignore-release-date:
+      - 'Acquire::Check-Valid-Until "false";'
+  node_home: /usr/lib/nodejs
+
+trusty:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}
+  repo_ppa: nodejs/stable
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
+  node_home: /usr/lib/nodejs
+
+bionic:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
+  node_home: /usr/lib/nodejs
+
+focal:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
+  node_home: /usr/lib/nodejs
+
+jammy:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
+  node_home: /usr/lib/nodejs
+
+xenial:
+  pkg: nodejs
+  repo_name: {{ grains['oscodename'] }}
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
+  node_home: /usr/lib/nodejs
+
+# Fallback to default settings
+default:
+  pkg: nodejs
+  repo_name: nodejs-18-repo
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
+  node_home: /usr/lib/nodejs

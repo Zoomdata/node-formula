@@ -1,0 +1,20 @@
+Debian:
+  pkg: nodejs
+  node_home: /usr/lib/nodejs
+
+RedHat:
+  pkg: nodejs
+  node_home: /usr/lib/nodejs
+
+Ubuntu:
+  pkg: nodejs
+  node_home: /usr/lib/nodejs
+
+CentOS:
+  pkg: nodejs
+  node_home: /usr/lib/nodejs
+
+# Fallback for unsupported OS families
+default:
+  pkg: node
+  node_home: /usr/lib/nodejs
