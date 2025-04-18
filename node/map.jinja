@@ -1,15 +1,15 @@
-{% if salt['pillar.get']('nodejs:version', 18) == 18 %}
-{% set nodejs = {
-    'pkg': 'nodejs-18',
-    'repo_name': 'nodejs-18-repo',
-    'repo_ppa': 'ppa:nodejs/stable',
-    'repo_entry': 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main',
-    'repo_key_url': 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key',
-    'repo_base_url': 'https://deb.nodesource.com/node_18.x',
-    'apt_config': {
-        '50nodesource': {
-            'value': 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main',
-        }
-    }
-} %}
-{% endif %}
+{% import_yaml 'nodejs/osfamily_map.yaml' as osfamily_map %}
+{% import_yaml 'nodejs/codename_map.yaml' as codename_map %}
+{% set pillar_section_name = "nodejs:node18" %}
+
+{# Merge Pillar items with OS defaults #}
+{% set nodejs = salt['grains.filter_by'](
+    osfamily_map,
+    grain='os_family',
+    merge=salt['grains.filter_by'](
+        codename_map,
+        grain='oscodename',
+        merge=salt['pillar.get'](pillar_section_name, {}),
+    ),
+    base='default',
+) %}
