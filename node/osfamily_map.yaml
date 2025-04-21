@@ -1,20 +1,20 @@
 Debian:
-  pkg: nodejs-18.x
+  pkg: nodejs
   node_home: /usr/lib/nodejs
 
 RedHat:
-  pkg: nodejs-18.x
+  pkg: nodejs
   node_home: /usr/lib/nodejs
 
 Ubuntu:
-  pkg: nodejs-18.x
+  pkg: nodejs
   node_home: /usr/lib/nodejs
 
 CentOS:
-  pkg: nodejs-18.x
+  pkg: nodejs
   node_home: /usr/lib/nodejs
 
 # Fallback for unsupported OS families
 default:
-  pkg: nodejs.x
+  pkg: nodejs
   node_home: /usr/lib/nodejs
