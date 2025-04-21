@@ -33,7 +33,7 @@ CentOS Linux 7 (Core):
 RHEL_7:
   pkg: nodejs-18
   repo_name: rhel7
-  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -''
+  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
 
 
