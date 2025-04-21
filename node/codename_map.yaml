@@ -1,53 +1,48 @@
+# Node.js 18 Configuration
+
 wheezy:
-  pkg: nodejs
+  pkg: nodejs-18
   repo_name: {{ grains['oscodename'] }}
-  repo_entry: 'deb http://archive.debian.org/debian/ %(repo_name)s main'
-  node_home: /usr/lib/nodejs
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
+  node_home: /usr/local/bin/node
 
 jessie:
-  pkg: nodejs
+  pkg: nodejs-18
   repo_name: {{ grains['oscodename'] }}-backports
-  repo_entry: 'deb http://archive.debian.org/debian/ %(repo_name)s main'
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
   apt_config:
-    # Ignore expiry date, since backports are no longer updated
+    # Ignore expiry date for backports repositories
     90ignore-release-date:
       - 'Acquire::Check-Valid-Until "false";'
-  node_home: /usr/lib/nodejs
 
 trusty:
-  pkg: nodejs
+  pkg: nodejs-18
   repo_name: {{ grains['oscodename'] }}
   repo_ppa: nodejs/stable
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
-  node_home: /usr/lib/nodejs
+  repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
+  node_home: /usr/local/bin/node
 
-bionic:
-  pkg: nodejs
-  repo_name: {{ grains['oscodename'] }}
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
-  node_home: /usr/lib/nodejs
+CentOS Linux 7 (Core):
+  pkg: nodejs-18
+  repo_name: epel
+  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
+  node_home: /usr/local/bin/node
 
-focal:
-  pkg: nodejs
-  repo_name: {{ grains['oscodename'] }}
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
-  node_home: /usr/lib/nodejs
+# For RHEL-based distributions (RHEL 7, 8, 9)
+RHEL_7:
+  pkg: nodejs-18
+  repo_name: rhel7
+  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
+  node_home: /usr/local/bin/node
 
-jammy:
-  pkg: nodejs
-  repo_name: {{ grains['oscodename'] }}
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
-  node_home: /usr/lib/nodejs
+RHEL_8:
+  pkg: nodejs-18
+  repo_name: rhel8
+  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/8/x86_64/'
+  node_home: /usr/local/bin/node
 
-xenial:
-  pkg: nodejs
-  repo_name: {{ grains['oscodename'] }}
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
-  node_home: /usr/lib/nodejs
-
-# Fallback to default settings
-default:
-  pkg: nodejs
-  repo_name: nodejs-18-repo
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x {{ grains['lsb']['codename'] }} main'
-  node_home: /usr/lib/nodejs
+RHEL_9:
+  pkg: nodejs-18
+  repo_name: rhel9
+  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/9/x86_64/'
+  node_home: /usr/local/bin/node
