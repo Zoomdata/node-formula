@@ -5,10 +5,10 @@
 nvm/install deps:
   pkg.installed:
     - pkgs:
-      - curl
-      - gcc
-      - make
-      - openssl-devel
+        - curl
+        - gcc
+        - make
+        - openssl-devel
 
 nvm/install script:
   cmd.run:
@@ -24,8 +24,9 @@ nvm/install node {{ nodejs.node_version }}:
         nvm install {{ nodejs.node_version }} && \
         nvm alias default {{ nodejs.node_version }}
     - shell: /bin/bash
+    - unless: test -x /root/.nvm/versions/node/v{{ nodejs.node_version }}/bin/node
     - require:
-      - cmd: nvm/install script
+        - cmd: nvm/install script
 
 nvm/persist env globally:
   file.managed:
@@ -34,5 +35,12 @@ nvm/persist env globally:
     - contents: |
         export NVM_DIR="/root/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+nodejs/Check installed version:
+  cmd.run:
+    - name: /root/.nvm/versions/node/v{{ nodejs.node_version }}/bin/node --version
+    - shell: /bin/bash
+    - require:
+        - cmd: nvm/install node {{ nodejs.node_version }}
 
 {%- endif %}

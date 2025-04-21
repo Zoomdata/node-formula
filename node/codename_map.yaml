@@ -1,46 +1,4 @@
-# Node.js 18 Configuration
-
-wheezy:
-  repo_name: {{ grains['oscodename'] }}
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
-  node_home: /usr/local/bin/node
-
-jessie:
-  repo_name: {{ grains['oscodename'] }}-backports
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
-  apt_config:
-    # Ignore expiry date for backports repositories
-    90ignore-release-date:
-      - 'Acquire::Check-Valid-Until "false";'
-
-trusty:
-  repo_name: {{ grains['oscodename'] }}
-  repo_ppa: nodejs/stable
-  repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
-  node_home: /usr/local/bin/node
-
-CentOS Linux 7 (Core):
+default:
   use_nvm: true
-  node_version: "18"
+  node_version: "18.20.2"
   node_home: /root/.nvm/versions/node/v18.20.2/bin/node
-
-# For RHEL-based distributions (RHEL 7, 8, 9)
-RHEL_7:
-  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
-  pkg.installed:
-    - name: nodejs
-  node_home: /usr/local/bin/node
-
-
-RHEL_8:
-  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
-  pkg.installed:
-    - name: nodejs
-  node_home: /usr/local/bin/node
-
-
-RHEL_9:
-  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
-  pkg.installed:
-    - name: nodejs
-  node_home: /usr/local/bin/node
