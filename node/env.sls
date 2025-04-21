@@ -5,7 +5,7 @@
 nodejs/Set NODE_HOME env variable globally:
   file.blockreplace:
     - name: '/etc/environment'
-    - content: 'NODE_HOME={{ nodejs.repo_base_url }}'
+    - content: 'NODE_HOME={{ nodejs.node_home }}'
     - append_if_not_found: True
     - append_newline: True
 
