@@ -1,13 +1,11 @@
 # Node.js 18 Configuration
 
 wheezy:
-  pkg: nodejs-18
   repo_name: {{ grains['oscodename'] }}
   repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
   node_home: /usr/local/bin/node
 
 jessie:
-  pkg: nodejs-18
   repo_name: {{ grains['oscodename'] }}-backports
   repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
   apt_config:
@@ -16,33 +14,28 @@ jessie:
       - 'Acquire::Check-Valid-Until "false";'
 
 trusty:
-  pkg: nodejs-18
   repo_name: {{ grains['oscodename'] }}
   repo_ppa: nodejs/stable
   repo_entry: 'deb https://deb.nodesource.com/node_18.x %(repo_name)s main'
   node_home: /usr/local/bin/node
 
 CentOS Linux 7 (Core):
-  pkg: nodejs-18
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
 
 
 # For RHEL-based distributions (RHEL 7, 8, 9)
 RHEL_7:
-  pkg: nodejs-18
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
 
 
 RHEL_8:
-  pkg: nodejs-18
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
 
 
 RHEL_9:
-  pkg: nodejs-18
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
 
