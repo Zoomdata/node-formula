@@ -5,11 +5,22 @@
 nvm/install deps:
   pkg.installed:
     - pkgs:
+      {%- if grains['os_family'] == 'RedHat' %}
         - curl
         - gcc
         - make
         - openssl-devel
-
+      {%- elif grains['os_family'] == 'Debian' %}
+        - curl
+        - gcc
+        - make
+        - libssl-dev
+      {%- else %}
+        - curl
+        - gcc
+        - make
+      {%- endif %}
+      
 nvm/install script:
   cmd.run:
     - name: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
