@@ -1,6 +1,6 @@
 {%- from 'node/map.jinja' import nodejs with context -%}
 
-nodejs/Install Node.js 18:
+nodejs/Install Node.js:
   pkg.installed:
     - name: {{ nodejs.pkg }}
     {%- if 'repo_name' in nodejs %}

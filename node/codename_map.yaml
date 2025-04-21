@@ -20,11 +20,9 @@ trusty:
   node_home: /usr/local/bin/node
 
 CentOS Linux 7 (Core):
-  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
-  pkg.installed:
-    - name: nodejs
-  node_home: /usr/local/bin/node
-
+  use_nvm: true
+  node_version: "18"
+  node_home: /root/.nvm/versions/node/v18.20.2/bin/node
 
 # For RHEL-based distributions (RHEL 7, 8, 9)
 RHEL_7:
