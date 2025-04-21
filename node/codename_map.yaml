@@ -21,21 +21,28 @@ trusty:
 
 CentOS Linux 7 (Core):
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
+  pkg.installed:
+    - name: nodejs
   node_home: /usr/local/bin/node
 
 
 # For RHEL-based distributions (RHEL 7, 8, 9)
 RHEL_7:
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
+  pkg.installed:
+    - name: nodejs
   node_home: /usr/local/bin/node
 
 
 RHEL_8:
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
+  pkg.installed:
+    - name: nodejs
   node_home: /usr/local/bin/node
 
 
 RHEL_9:
   setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
+  pkg.installed:
+    - name: nodejs
   node_home: /usr/local/bin/node
-
