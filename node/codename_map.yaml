@@ -24,41 +24,29 @@ trusty:
 
 CentOS Linux 7 (Core):
   pkg: nodejs-18
-  repo_name: epel
-  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
+  repo_name: nodesource
+  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
-  pkgrepo.managed:
-    - name: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
-    - gpgkey: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/RPM-GPG-KEY-Nodesource'
-    - enabled: 1
+
 
 # For RHEL-based distributions (RHEL 7, 8, 9)
 RHEL_7:
   pkg: nodejs-18
   repo_name: rhel7
-  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
+  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -''
   node_home: /usr/local/bin/node
-  pkgrepo.managed:
-    - name: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
-    - gpgkey: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/RPM-GPG-KEY-Nodesource'
-    - enabled: 1
+
 
 RHEL_8:
   pkg: nodejs-18
-  repo_name: rhel8
-  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/8/x86_64/'
+  repo_name: nodesource
+  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
-  pkgrepo.managed:
-    - name: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
-    - gpgkey: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/RPM-GPG-KEY-Nodesource'
-    - enabled: 1
+
 
 RHEL_9:
   pkg: nodejs-18
-  repo_name: rhel9
-  repo_entry: 'https://rpm.nodesource.com/pub_18.x/el/9/x86_64/'
+  repo_name: nodesource
+  setup_script: 'curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -'
   node_home: /usr/local/bin/node
-  pkgrepo.managed:
-    - name: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/'
-    - gpgkey: 'https://rpm.nodesource.com/pub_18.x/el/7/x86_64/RPM-GPG-KEY-Nodesource'
-    - enabled: 1
+
