@@ -23,36 +23,45 @@ nvm/install deps:
 
 nvm/install script:
   cmd.run:
-    - name: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    - creates: /root/.nvm
+    - name: |
+        mkdir -p /usr/local/nvm && \
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | NVM_DIR=/usr/local/nvm bash
+    - creates: /usr/local/nvm
     - shell: /bin/bash
 
 nvm/install node v18.20.7:
   cmd.run:
     - name: |
-        export NVM_DIR="/root/.nvm" && \
+        export NVM_DIR="/usr/local/nvm" && \
         . "$NVM_DIR/nvm.sh" && \
         nvm install 18.20.7 && \
         nvm alias default 18.20.7
     - shell: /bin/bash
-    - unless: test -x /root/.nvm/versions/node/v18.20.7/bin/node
+    - unless: test -x /usr/local/nvm/versions/node/v18.20.7/bin/node
     - require:
         - cmd: nvm/install script
+
+nvm/set permissions for /usr/local/nvm:
+  cmd.run:
+    - name: chmod -R 755 /usr/local/nvm
+    - shell: /bin/bash
+    - require:
+        - cmd: nvm/install node v18.20.7
 
 nvm/persist NVM in profile:
   file.managed:
     - name: /etc/profile.d/nvm.sh
     - mode: '0755'
     - contents: |
-        export NVM_DIR="/root/.nvm"
+        export NVM_DIR="/usr/local/nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 nodejs/Check installed Node.js version:
   cmd.run:
-    - name: /root/.nvm/versions/node/v18.20.7/bin/node --version
+    - name: /usr/local/nvm/versions/node/v18.20.7/bin/node --version
     - shell: /bin/bash
     - require:
-        - cmd: nvm/install node v18.20.7
+        - cmd: nvm/set permissions for /usr/local/nvm
 
 nodejs/Configure systemd DefaultEnvironment:
   file.managed:
@@ -61,10 +70,10 @@ nodejs/Configure systemd DefaultEnvironment:
     - mode: '0644'
     - contents: |
         [Manager]
-        DefaultEnvironment=NODE_HOME=/root/.nvm/versions/node/v18.20.7/bin/node
-        DefaultEnvironment=PATH=/root/.nvm/versions/node/v18.20.7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        DefaultEnvironment=NODE_HOME=/usr/local/nvm/versions/node/v18.20.7/bin/node
+        DefaultEnvironment=PATH=/usr/local/nvm/versions/node/v18.20.7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     - require:
-        - cmd: nvm/install node v18.20.7
+        - cmd: nvm/set permissions for /usr/local/nvm
 
 nodejs/Reload systemd daemon:
   cmd.run:
