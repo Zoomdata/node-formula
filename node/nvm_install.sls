@@ -39,7 +39,7 @@ nvm/install node v18.20.7:
     - require:
         - cmd: nvm/install script
 
-nvm/persist env globally:
+nvm/persist NVM in profile:
   file.managed:
     - name: /etc/profile.d/nvm.sh
     - mode: '0755'
@@ -47,11 +47,30 @@ nvm/persist env globally:
         export NVM_DIR="/root/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-nodejs/Check installed version:
+nodejs/Check installed Node.js version:
   cmd.run:
     - name: /root/.nvm/versions/node/v18.20.7/bin/node --version
     - shell: /bin/bash
     - require:
         - cmd: nvm/install node v18.20.7
+
+nodejs/Configure systemd DefaultEnvironment:
+  file.managed:
+    - name: /etc/systemd/system.conf.d/99-nodejs.conf
+    - makedirs: True
+    - mode: '0644'
+    - contents: |
+        [Manager]
+        DefaultEnvironment=NODE_HOME=/root/.nvm/versions/node/v18.20.7/bin/node
+        DefaultEnvironment=PATH=/root/.nvm/versions/node/v18.20.7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - require:
+        - cmd: nvm/install node v18.20.7
+
+nodejs/Reload systemd daemon:
+  cmd.run:
+    - name: systemctl daemon-reexec
+    - shell: /bin/bash
+    - require:
+        - file: nodejs/Configure systemd DefaultEnvironment
 
 {%- endif %}
