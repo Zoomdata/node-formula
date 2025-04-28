@@ -1,10 +1,10 @@
 {%- from 'node/map.jinja' import nodejs with context -%}
 
 {%- if nodejs.node_home is defined %}
-nodejs/Set NODE_HOME env variable globally:
-  file.blockreplace:
+nodejs/Append NODE_HOME and PATH to environment:
+  file.append:
     - name: '/etc/environment'
-    - content: 'NODE_HOME={{ nodejs.node_home }}'
-    - append_if_not_found: True
-    - append_newline: True
+    - text:
+      - 'NODE_HOME={{ nodejs.node_home }}'
+      - 'PATH={{ nodejs.node_home | replace("/bin/node", "/bin") }}:$PATH'
 {%- endif %}

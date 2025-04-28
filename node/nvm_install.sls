@@ -20,22 +20,22 @@ nvm/install deps:
         - gcc
         - make
       {%- endif %}
-      
+
 nvm/install script:
   cmd.run:
     - name: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - creates: /root/.nvm
     - shell: /bin/bash
 
-nvm/install node {{ nodejs.node_version }}:
+nvm/install node v18.20.7:
   cmd.run:
     - name: |
         export NVM_DIR="/root/.nvm" && \
         . "$NVM_DIR/nvm.sh" && \
-        nvm install {{ nodejs.node_version }} && \
-        nvm alias default {{ nodejs.node_version }}
+        nvm install 18.20.7 && \
+        nvm alias default 18.20.7
     - shell: /bin/bash
-    - unless: test -x /root/.nvm/versions/node/v{{ nodejs.node_version }}/bin/node
+    - unless: test -x /root/.nvm/versions/node/v18.20.7/bin/node
     - require:
         - cmd: nvm/install script
 
@@ -49,9 +49,9 @@ nvm/persist env globally:
 
 nodejs/Check installed version:
   cmd.run:
-    - name: /root/.nvm/versions/node/v{{ nodejs.node_version }}/bin/node --version
+    - name: /root/.nvm/versions/node/v18.20.7/bin/node --version
     - shell: /bin/bash
     - require:
-        - cmd: nvm/install node {{ nodejs.node_version }}
+        - cmd: nvm/install node v18.20.7
 
 {%- endif %}
